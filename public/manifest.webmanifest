@@ -1,0 +1,12 @@
+{
+  "name": "ALÍA · Tu segunda escucha",
+  "short_name": "ALÍA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071923",
+  "theme_color": "#071923",
+  "description": "Segundo cerebro privado para reuniones, talleres y diagnósticos organizacionales.",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
