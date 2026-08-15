@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#071923" />
+  <meta name="description" content="ALÍA: segundo cerebro privado para reuniones, talleres y diagnósticos organizacionales." />
+  <title>ALÍA · Tu segunda escucha</title>
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <button class="brand brand-button" id="homeBrand" aria-label="Ir al inicio">
+        <div class="mark">A</div>
+        <div><strong>ALÍA</strong><span>Tu segunda escucha</span></div>
+      </button>
+      <div id="connectionBadge" class="badge offline"><span></span> Fuera de sesión</div>
+    </header>
+
+    <section id="setupView" class="view active">
+      <div class="hero">
+        <p class="eyebrow">ASESOR PRIVADO EN TIEMPO REAL · MVP 0.2</p>
+        <h1>Escucha mejor.<br><em>Pregunta mejor.</em></h1>
+        <p class="lede">ALÍA escucha una conversación autorizada, construye memoria de la sesión y solo te avisa cuando detecta una señal que puede mejorar tu siguiente intervención.</p>
+      </div>
+
+      <div class="panel form-panel">
+        <div class="panel-title-row"><div><p class="mini-label">NUEVA SESIÓN</p><h2>Preparar la escucha</h2></div><span class="version-pill">0.2</span></div>
+        <div class="grid two">
+          <label>Nombre de la sesión<input id="sessionName" value="Diagnóstico de equipo" placeholder="Ej. Grupo focal de liderazgo" /></label>
+          <label>Cliente / organización<input id="client" placeholder="Ej. Vicpimar" /></label>
+        </div>
+        <div class="grid two">
+          <label>Tipo de espacio<select id="mode"><option value="diagnostico">Diagnóstico / grupo focal</option><option value="taller">Taller / facilitación</option><option value="reunion">Reunión de trabajo</option><option value="comercial">Conversación comercial</option></select></label>
+          <label>Nivel de intervención<select id="cadence"><option value="selectiva">Selectivo · solo señales fuertes</option><option value="equilibrada">Equilibrado</option><option value="activa">Activo · más sugerencias</option></select></label>
+        </div>
+        <label>Objetivo de la sesión<textarea id="objective" rows="2">Comprender qué está ocurriendo en el equipo, identificar patrones y construir oportunidades de mejora con los participantes.</textarea></label>
+        <label>Contexto que ALÍA debe conocer<textarea id="context" rows="3" placeholder="Antecedentes, situación, lo que ya sabes del grupo…">Sesión de diagnóstico organizacional. Quiero escuchar antes de concluir y encontrar conexiones entre comunicación, liderazgo, reconocimiento, carga y relaciones de trabajo.</textarea></label>
+
+        <div class="focus-title-row"><span class="focus-title">Focos de escucha</span><button id="toggleAllFocus" class="text-btn" type="button">Quitar todos</button></div>
+        <div class="chips" id="focusChips">
+          <button class="chip selected" data-focus="comunicación">Comunicación</button>
+          <button class="chip selected" data-focus="liderazgo">Liderazgo</button>
+          <button class="chip selected" data-focus="relaciones y confianza">Confianza</button>
+          <button class="chip selected" data-focus="reconocimiento y motivación">Reconocimiento</button>
+          <button class="chip selected" data-focus="carga y coordinación del trabajo">Carga</button>
+          <button class="chip selected" data-focus="acuerdos y compromisos">Acuerdos</button>
+        </div>
+
+        <div class="privacy-box"><div class="privacy-icon">◎</div><div><strong>Privacidad por diseño</strong><p>Esta versión guarda el historial de sesión en este navegador. No incluye una base de datos externa ni grabación permanente de audio.</p></div></div>
+        <label class="consent"><input id="consent" type="checkbox" /><span>Confirmo que la captura y transcripción de esta sesión cuenta con la información, autorización o base aplicable y que usaré ALÍA respetando privacidad y confidencialidad.</span></label>
+        <button id="startBtn" class="primary">Iniciar escucha real</button>
+        <button id="demoBtn" class="secondary">Probar experiencia en modo demo</button>
+        <p id="apiHint" class="api-hint"></p>
+      </div>
+    </section>
+
+    <section id="liveView" class="view">
+      <div class="live-head"><div><p class="eyebrow">SESIÓN ACTIVA</p><h1 id="liveTitle">Diagnóstico de equipo</h1><p id="liveClient" class="live-client"></p></div><div class="timer-wrap"><span id="sessionModePill" class="mode-pill">Diagnóstico</span><div class="timer" id="timer">00:00</div></div></div>
+      <div class="listening-card"><div class="orb" id="orb"><div></div></div><div class="listen-copy"><strong id="listenState">ALÍA está escuchando</strong><p id="listenSub">Construye contexto antes de intervenir.</p></div><div class="listen-actions"><button id="pauseListening" class="icon-btn" title="Pausar micrófono" aria-label="Pausar micrófono">Ⅱ</button><button id="muteHints" class="icon-btn" title="Silenciar sugerencias" aria-label="Silenciar sugerencias">🔊</button></div></div>
+
+      <section class="insight-panel"><div class="section-head"><span>Señal prioritaria</span><span class="small" id="confidence">En escucha</span></div><article id="insightCard" class="insight empty"><div class="insight-type">SILENCIO ÚTIL</div><h3>ALÍA está acumulando contexto.</h3><p>Una buena segunda escucha sabe cuándo todavía no hay suficiente evidencia para intervenir.</p></article></section>
+      <section class="signal-grid" aria-label="Prominencia de temas"><div class="metric"><span>Comunicación</span><strong id="mComm">—</strong><i><b id="bComm"></b></i></div><div class="metric"><span>Liderazgo</span><strong id="mLead">—</strong><i><b id="bLead"></b></i></div><div class="metric"><span>Confianza</span><strong id="mTrust">—</strong><i><b id="bTrust"></b></i></div><div class="metric"><span>Reconocimiento</span><strong id="mRecog">—</strong><i><b id="bRecog"></b></i></div><div class="metric"><span>Carga</span><strong id="mLoad">—</strong><i><b id="bLoad"></b></i></div><div class="metric"><span>Acuerdos</span><strong id="mAgree">—</strong><i><b id="bAgree"></b></i></div></section>
+      <div class="live-actions"><button id="manualPrompt" class="primary compact-btn">¿Qué estoy dejando pasar?</button><button id="markMoment" class="secondary compact-btn">Marcar momento</button><button id="endBtn" class="danger compact-btn">Finalizar</button></div>
+      <div class="grid-live"><section class="panel feed-panel"><div class="section-head strong-head"><span>Conversación</span><span id="turnCount" class="small">0 turnos</span></div><div id="transcriptFeed" class="feed empty-feed"><p>Aquí aparecerán fragmentos de la transcripción autorizada.</p></div></section><section class="panel feed-panel"><div class="section-head strong-head"><span>Memoria ALÍA</span><span id="insightCountLabel" class="small">0 señales</span></div><div id="insightFeed" class="feed empty-feed"><p>Los patrones validados se irán acumulando aquí.</p></div></section></div>
+      <section class="panel note-panel"><div class="section-head strong-head"><span>Nota rápida del facilitador</span><span class="small">Solo local</span></div><div class="note-row"><input id="quickNote" placeholder="Escribe algo que quieras conservar…" /><button id="addNote" class="secondary mini-btn">Guardar</button></div></section>
+      <details class="debug"><summary>Actividad técnica</summary><pre id="eventLog"></pre></details>
+    </section>
+
+    <section id="summaryView" class="view">
+      <div class="hero compact"><p class="eyebrow">CIERRE DE SESIÓN</p><h1>Convierte escucha en <em>criterio.</em></h1><p class="lede">Este cierre conserva la memoria local de la sesión: transcripción capturada, señales, momentos marcados y notas del facilitador.</p></div>
+      <div class="summary-grid"><div class="panel summary-main"><div class="panel-title-row"><div><p class="mini-label">RESUMEN</p><h2 id="summaryTitle">Sesión</h2></div><span id="summaryDuration" class="version-pill">00:00</span></div><div id="summaryContent" class="summary-content"></div></div><aside class="panel export-panel"><h2>Conservar</h2><p>Descarga la memoria de esta prueba para revisarla o usarla como insumo posterior.</p><button id="exportMd" class="primary">Exportar informe .md</button><button id="exportJson" class="secondary">Exportar datos .json</button><button id="newSession" class="text-btn block-btn">Nueva sesión</button></aside></div>
+    </section>
+  </main>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
